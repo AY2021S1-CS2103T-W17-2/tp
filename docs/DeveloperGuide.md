@@ -115,7 +115,7 @@ The `Model`,
 
 ### Storage component
 
-![Structure of the Storage Component](images/StorageClassDiagram.png)
+![Structure of the Storage Component](images/ExerciseStorageClassDiagram.png)
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
@@ -213,9 +213,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
+### Aspect: How to archive Data
 
-_{Explain here how the data archiving feature will be implemented}_
+* **Current Choice:** Using Archive Command.
+  * Implementation: Have a separate Archive Command to let the User specify the file location.
+  * Pros: The user can specify the location where users want to save the data.
+  * Cons: Error prone. The user need to enter the file location specification which may be difficult for users who are not used to command prompt.
+
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -368,13 +372,13 @@ testers are expected to do more *exploratory* testing.
        Expected: The most recent window size and location is retained.
 1. _{ more test cases …​ }_
 
-### Deleting a person
-1. Deleting a person while all persons are being shown
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+### Deleting an exercise
+1. Deleting an exercise while all exercises are being shown
+   1. Prerequisites: List all exercises using the `list` command. Multiple exercises in the list.
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No exercise is deleted. Error details shown in the status message. Status bar remains the same.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 1. _{ more test cases …​ }_

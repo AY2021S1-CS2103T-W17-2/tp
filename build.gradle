@@ -65,8 +65,20 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
+run {
+    enableAssertions = true
+}
+
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'calo.jar'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main': 'tp.src.main.java.Main'
+        )
+    }
 }
 
 defaultTasks 'clean', 'test'

@@ -22,19 +22,19 @@ public class NameTest {
     @Test
     public void isValidName() {
         // null name
-        assertThrows(NullPointerException.class, () -> seedu.address.model.person.Name.isValidName(null));
+        assertThrows(NullPointerException.class, () -> seedu.address.model.exercise.Name.isValidName(null));
 
         // invalid name
-        assertFalse(seedu.address.model.person.Name.isValidName("")); // empty string
-        assertFalse(seedu.address.model.person.Name.isValidName(" ")); // spaces only
-        assertFalse(seedu.address.model.person.Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(seedu.address.model.person.Name.isValidName("run*")); // contains non-alphanumeric characters
+        assertFalse(seedu.address.model.exercise.Name.isValidName("")); // empty string
+        assertFalse(seedu.address.model.exercise.Name.isValidName(" ")); // spaces only
+        assertFalse(seedu.address.model.exercise.Name.isValidName("^")); // only non-alphanumeric characters
+        assertFalse(seedu.address.model.exercise.Name.isValidName("run*")); // contains non-alphanumeric characters
 
         // valid name
-        assertTrue(seedu.address.model.person.Name.isValidName("pull up")); // alphabets only
-        assertTrue(seedu.address.model.person.Name.isValidName("12345")); // numbers only
-        assertTrue(seedu.address.model.person.Name.isValidName("2nd pull up")); // alphanumeric characters
-        assertTrue(seedu.address.model.person.Name.isValidName("Run")); // with capital letters
+        assertTrue(seedu.address.model.exercise.Name.isValidName("pull up")); // alphabets only
+        assertTrue(seedu.address.model.exercise.Name.isValidName("12345")); // numbers only
+        assertTrue(seedu.address.model.exercise.Name.isValidName("2nd pull up")); // alphanumeric characters
+        assertTrue(seedu.address.model.exercise.Name.isValidName("Run")); // with capital letters
         assertTrue(Name.isValidName("pull up 2 times")); // long names
     }
 

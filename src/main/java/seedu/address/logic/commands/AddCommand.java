@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MUSCLES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ExerciseModel;
@@ -22,13 +24,18 @@ public class AddCommand extends CommandForExercise {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_DATE + "DATE "
-            + "[" + PREFIX_CALORIES + "CALORIES]\n"
+            + "[" + PREFIX_DATE + "DATE]"
+            + "[" + PREFIX_CALORIES + "CALORIES] "
+            + "[" + PREFIX_MUSCLES + "MUSCLES_WORKED] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "running "
             + PREFIX_DESCRIPTION + "10 mins "
             + PREFIX_DATE + "31-12-2020 "
-            + PREFIX_CALORIES + "100 kcal ";
+            + PREFIX_CALORIES + "100 "
+            + PREFIX_MUSCLES + "chest,arm "
+            + PREFIX_TAG + "home "
+            + PREFIX_TAG + "gym";
 
     public static final String MESSAGE_SUCCESS = "New exercise added: %1$s\n"+
             "Congratulations! You have burnt %2$.6s kg";
@@ -64,5 +71,4 @@ public class AddCommand extends CommandForExercise {
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd)); // state check
     }
-
 }

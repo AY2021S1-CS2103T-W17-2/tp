@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.exercise.Exercise;
@@ -18,7 +21,6 @@ public class ExerciseCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
     public final Exercise exercise;
@@ -35,6 +37,10 @@ public class ExerciseCard extends UiPart<Region> {
     private Label description;
     @FXML
     private Label calories;
+    @FXML
+    private Label muscles;
+    @FXML
+    private FlowPane tags;
 
     /**
      * Creates a {@code ExerciseCode} with the given {@code Exercise} and index to display.
@@ -46,7 +52,12 @@ public class ExerciseCard extends UiPart<Region> {
         name.setText(exercise.getName().fullName);
         date.setText(exercise.getDate().value);
         description.setText(exercise.getDescription().value);
-        calories.setText(exercise.getCalories().value);
+        calories.setText(exercise.getCalories().toString());
+        muscles.setText(exercise.getMusclesWorkedDescription() == null
+                                ? "None" : exercise.getMusclesWorkedDescription());
+        exercise.getExerciseTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

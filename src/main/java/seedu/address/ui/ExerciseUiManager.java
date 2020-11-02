@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
+import seedu.address.ExerciseMainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.LogicForExercise;
@@ -19,14 +19,14 @@ public class ExerciseUiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
-    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final Logger logger = LogsCenter.getLogger(ExerciseUiManager.class);
+    private static final String ICON_APPLICATION = "/images/Calo.png";
 
     private LogicForExercise logic;
     private MainWindowForExercise mainWindow;
 
     /**
-     * Creates a {@code UiManager} with the given {@code Logic}.
+     * Creates a {@code ExerciseUiManager} with the given {@code LogicForExercise}.
      */
     public ExerciseUiManager(LogicForExercise logic) {
         super();
@@ -44,7 +44,6 @@ public class ExerciseUiManager implements Ui {
             mainWindow = new MainWindowForExercise(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
-
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -52,7 +51,7 @@ public class ExerciseUiManager implements Ui {
     }
 
     private Image getImage(String imagePath) {
-        return new Image(MainApp.class.getResourceAsStream(imagePath));
+        return new Image(ExerciseMainApp.class.getResourceAsStream(imagePath));
     }
 
     void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {

@@ -15,18 +15,20 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.exercise.Date;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.goal.Goal;
+import seedu.address.model.exercise.Template;
+import seedu.address.model.exercise.TemplateList;
 
 /**
  * Represents the in-memory model of the exercise book data.
  */
 public class ExerciseModelManager implements ExerciseModel {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ExerciseModelManager.class);
 
     private final ExerciseBook exerciseBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Exercise> filteredExercises;
+    private final FilteredList<Template> filteredTemplates;
     private final GoalBook goalBook;
-    
 
     /**
      * Initializes a ExerciseModelManager with the given exerciseBook and userPrefs.
@@ -40,6 +42,7 @@ public class ExerciseModelManager implements ExerciseModel {
         this.userPrefs = new UserPrefs(userPrefs);
         this.filteredExercises = new FilteredList<>(this.exerciseBook.getExerciseList());
         this.goalBook = new GoalBook(goalBook);
+        this.filteredTemplates = new FilteredList<>(this.exerciseBook.getTemplateList());
     }
 
     public ExerciseModelManager() {
@@ -72,8 +75,7 @@ public class ExerciseModelManager implements ExerciseModel {
 
     @Override
     public Path getExerciseBookFilePath() {
-        //To change later
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getExerciseBookFilePath();
     }
 
     @Override
@@ -122,6 +124,12 @@ public class ExerciseModelManager implements ExerciseModel {
     public void addExercise(Exercise exercise) {
         exerciseBook.addExercise(exercise);
         updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISE);
+    }
+
+    @Override
+    public void addTemplate(Template template) {
+        TemplateList.addTemplate(template);
+        //updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISE);
     }
 
     @Override
@@ -178,9 +186,20 @@ public class ExerciseModelManager implements ExerciseModel {
      */
     @Override
     public ObservableList<Exercise> getFilteredExerciseList() {
+
         return filteredExercises;
     }
     
+
+    @Override
+    public ObservableList<Template> getFilteredTemplateList() {
+
+        return TemplateList.getObservableList();
+    }
+
+    public HashMap<String, Integer> getCaloriesByDay() {
+        return exerciseBook.getCaloriesByDay();
+    }
 
     @Override
     public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
@@ -205,7 +224,6 @@ public class ExerciseModelManager implements ExerciseModel {
         }
 
         // state check
-        @SuppressWarnings("unchecked")
         ExerciseModelManager other = (ExerciseModelManager) obj;
         return exerciseBook.equals(other.exerciseBook)
                 && userPrefs.equals(other.userPrefs)

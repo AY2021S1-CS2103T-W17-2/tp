@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ExerciseModel;
 import seedu.address.model.ReadOnlyExerciseBook;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.Template;
 import seedu.address.storage.StorageForExercise;
 import seedu.address.storage.StorageForGoal;
 
@@ -25,7 +27,7 @@ import seedu.address.storage.StorageForGoal;
 public class LogicManagerForExercise implements LogicForExercise {
 
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+    private final Logger logger = LogsCenter.getLogger(LogicManagerForExercise.class);
 
     private final ExerciseModel model;
     private final StorageForExercise storage;
@@ -43,7 +45,7 @@ public class LogicManagerForExercise implements LogicForExercise {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException, IOException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult = null;
@@ -71,22 +73,24 @@ public class LogicManagerForExercise implements LogicForExercise {
         return commandResult;
     }
 
-    private void archiveMethod(Path path) throws CommandException {
-        try {
-            storage.saveExerciseBook(model.getExerciseBook(), path);
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
-    }
-
     @Override
     public ReadOnlyExerciseBook getExerciseBook() {
         return model.getExerciseBook();
     }
 
     @Override
+    public HashMap<String, Integer> getCaloriesByDay() {
+        return model.getCaloriesByDay();
+    }
+
+    @Override
     public ObservableList<Exercise> getFilteredExerciseList() {
         return model.getFilteredExerciseList();
+    }
+
+    @Override
+    public ObservableList<Template> getFilteredTemplateList() {
+        return model.getFilteredTemplateList();
     }
 
     @Override

@@ -19,7 +19,7 @@ import seedu.address.model.exercise.Exercise;
 @JsonRootName(value = "exercisebook")
 class JsonSerializableExerciseBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_EXERCISE = "Exercise list contains duplicate exercise(s).";
 
     private final List<JsonAdaptedExercise> exercises = new ArrayList<>();
 
@@ -50,7 +50,7 @@ class JsonSerializableExerciseBook {
         for (JsonAdaptedExercise jsonAdaptedExercise : exercises) {
             Exercise exercise = jsonAdaptedExercise.toModelType();
             if (exerciseBook.hasExercise(exercise)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EXERCISE);
             }
             exerciseBook.addExercise(exercise);
         }

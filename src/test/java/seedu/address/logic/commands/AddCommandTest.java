@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ import seedu.address.model.ExerciseModel;
 import seedu.address.model.ReadOnlyExerciseBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.Template;
 import seedu.address.testutil.ExerciseBuilder;
 
 public class AddCommandTest {
@@ -99,6 +101,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addTemplate(Template template) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setExerciseBook(ReadOnlyExerciseBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -129,8 +136,18 @@ public class AddCommandTest {
         }
 
         @Override
+        public HashMap<String, Integer> getCaloriesByDay() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Exercise> getFilteredExerciseList() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Template> getFilteredTemplateList() {
+            throw new AssertionError("this method should not be called.");
         }
 
         @Override
@@ -144,6 +161,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingExerciseAdded extends ModelStub {
         final ArrayList<Exercise> exercisesAdded = new ArrayList<>();
+        final HashMap<String, Integer> caloriesByDay = new HashMap<>();
 
         @Override
         public boolean hasExercise(Exercise exercise) {
@@ -154,7 +172,24 @@ public class AddCommandTest {
         @Override
         public void addExercise(Exercise exercise) {
             requireNonNull(exercise);
+            addCaloriesForDay(exercise);
             exercisesAdded.add(exercise);
+        }
+
+        private void addCaloriesForDay(Exercise newEntry) {
+            String stringDate = newEntry.getDate().value;
+            int intCalories = Integer.parseInt(newEntry.getCalories().toString());
+            if (caloriesByDay.containsKey(stringDate)) {
+                Integer newCalories = caloriesByDay.get(stringDate) + intCalories;
+                caloriesByDay.put(stringDate, newCalories);
+            } else {
+                caloriesByDay.put(stringDate, intCalories);
+            }
+        }
+
+        @Override
+        public HashMap<String, Integer> getCaloriesByDay() {
+            return caloriesByDay;
         }
 
         @Override

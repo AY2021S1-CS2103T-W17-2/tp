@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -16,10 +15,6 @@ import seedu.address.model.UserPrefs;
 public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     private Path filePath;
-
-    public JsonUserPrefsStorage() {
-        this.filePath = new File("preferences.json").toPath();
-    }
 
     public JsonUserPrefsStorage(Path filePath) {
         this.filePath = filePath;

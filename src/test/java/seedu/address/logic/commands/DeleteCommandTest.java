@@ -15,7 +15,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.ExerciseModel;
 import seedu.address.model.ExerciseModelManager;
-import seedu.address.model.Model;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exercise.Exercise;
 
@@ -96,19 +95,9 @@ public class DeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different exercise -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
-
-        assertTrue(model.getFilteredPersonList().isEmpty());
-    }
-
 
     /**
      * Updates {@code model}'s filtered list to show no one.

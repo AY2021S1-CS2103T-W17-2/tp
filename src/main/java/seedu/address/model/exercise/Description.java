@@ -1,10 +1,11 @@
 package seedu.address.model.exercise;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Description {
     public static final String MESSAGE_CONSTRAINTS =
-            "the description should not be blank";
+            "Descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
 
     public final String value;
 
@@ -14,6 +15,7 @@ public class Description {
      */
     public Description(String description) {
         requireNonNull(description);
+        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         this.value = description;
     }
 

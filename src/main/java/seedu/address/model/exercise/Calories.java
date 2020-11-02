@@ -1,12 +1,11 @@
 package seedu.address.model.exercise;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Calories {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Calories should be at least 1 digit long";
+            "Calories should be at least 1 digit long, or must be an integer";
 
     /*
      * The first character must not be a whitespace,
@@ -22,9 +21,12 @@ public class Calories {
      * @param calories A valid input.
      */
     public Calories(String calories) {
-        requireNonNull(calories);
-        checkArgument(isValidCalories(calories), MESSAGE_CONSTRAINTS);
-        value = calories;
+        if (calories == null) {
+            value = "0";
+        } else {
+            checkArgument(isValidCalories(calories), MESSAGE_CONSTRAINTS);
+            value = calories;
+        }
     }
 
     /**

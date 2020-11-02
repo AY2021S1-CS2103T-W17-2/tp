@@ -2,10 +2,13 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.Template;
+import seedu.address.model.exercise.TemplateList;
 import seedu.address.model.exercise.UniqueExerciseList;
 
 /**
@@ -82,7 +85,7 @@ public class ExerciseBook implements ReadOnlyExerciseBook {
      */
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireNonNull(editedExercise);
-        exercises.setExercise(target, editedExercise);
+        exercises.updateExercise(target, editedExercise);
     }
 
     /**
@@ -102,8 +105,18 @@ public class ExerciseBook implements ReadOnlyExerciseBook {
     }
 
     @Override
+    public HashMap<String, Integer> getCaloriesByDay() {
+        return exercises.getCaloriesByDay();
+    }
+
+    @Override
     public ObservableList<Exercise> getExerciseList() {
         return exercises.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Template> getTemplateList() {
+        return TemplateList.getObservableList();
     }
 
     @Override

@@ -8,11 +8,6 @@ import org.junit.jupiter.api.Test;
 
 public class CaloriesTest {
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Calories(null));
-    }
-
-    @Test
     public void constructor_invalidCalories_throwsIllegalArgumentException() {
         String invalidCalories = "";
         assertThrows(IllegalArgumentException.class, () -> new Calories(invalidCalories));

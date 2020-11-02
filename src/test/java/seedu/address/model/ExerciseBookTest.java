@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.LogsCenter;
 
 public class ExerciseBookTest {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ExerciseModelManager.class);
 
     private final ExerciseBook exerciseBook = new ExerciseBook();
 

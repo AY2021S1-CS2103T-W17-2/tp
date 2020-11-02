@@ -7,14 +7,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddTemplateCommand;
 import seedu.address.logic.commands.ArchiveCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandForExercise;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.UpdateExerciseCommand;
+import seedu.address.logic.commands.RecallCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -48,13 +52,22 @@ public class ExerciseBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case seedu.address.logic.commands.AddExerciseFromTemplate.COMMAND_WORD:
+            return new AddExerciseFromTemplateParser().parse(arguments);
+
+        case AddTemplateCommand.COMMAND_WORD:
+            return new AddTemplateCommandParser().parse(arguments);
+
         case ArchiveCommand.COMMAND_WORD:
             return new ArchiveCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case UpdateExerciseCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case UpdateCommand.COMMAND_WORD:
             return new UpdateExerciseCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
@@ -65,6 +78,15 @@ public class ExerciseBookParser {
             
         case GoalCommand.COMMAND_WORD:
                 return new GoalCommandParser().parse(arguments);    
+
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
+        case RecallCommand.COMMAND_WORD:
+            return new RecallCommandParser().parse(arguments);
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

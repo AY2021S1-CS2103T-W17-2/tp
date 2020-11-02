@@ -2,7 +2,12 @@ package seedu.address.model.exercise;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents an exercise in the exercise book.
@@ -14,18 +19,25 @@ public class Exercise {
     private final Date date;
 
     // Data fields
+    // FDs
+    // Name -> musclesWorked, calories (hence left out in equality checks)
     private final Description description;
     private final Calories calories;
+    private final List<Muscle> musclesWorked;
+    private final Set<ExerciseTag> tags = new HashSet<>();
 
     /**
      * Every field except for calories must be present and not null.
      */
-    public Exercise(Name name, Description description, Date date, Calories calories) {
-        requireAllNonNull(name, description, date);
+    public Exercise(Name name, Description description, Date date,
+                    Calories calories, List<Muscle> musclesWorked, Set<ExerciseTag> tags) {
+        requireAllNonNull(name, description, tags);
         this.name = name;
         this.description = description;
         this.date = date;
         this.calories = calories;
+        this.musclesWorked = musclesWorked;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -44,9 +56,30 @@ public class Exercise {
         return calories;
     }
 
+    public Optional<List<Muscle>> getMusclesWorked() {
+        return Optional.ofNullable(musclesWorked);
+    }
+
+    public String getMusclesWorkedDescription() {
+        if (!getMusclesWorked().isPresent()) {
+            return null;
+        }
+
+        return Muscle.muscleListToString(getMusclesWorked().get());
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<ExerciseTag> getExerciseTags() {
+        return Collections.unmodifiableSet(tags);
+    }
+
+
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, date, calories);
+        return Objects.hash(name, description, date, tags);
     }
 
     @Override
@@ -59,7 +92,13 @@ public class Exercise {
                 .append(" Date: ")
                 .append(getDate())
                 .append(" Calories: ")
-                .append(getCalories());
+                .append(getCalories())
+                .append(" Muscles worked:")
+                .append(getMusclesWorkedDescription())
+                .append(" Tags: ");
+
+        getExerciseTags().forEach(builder::append);
+
         return builder.toString();
     }
 
@@ -78,7 +117,7 @@ public class Exercise {
         return otherExercise.getName().equals(getName())
                 && otherExercise.getDescription().equals(getDescription())
                 && otherExercise.getDate().equals(getDate())
-                && otherExercise.getCalories().equals(getCalories());
+                && otherExercise.getExerciseTags().equals(getExerciseTags());
     }
 
     /**
@@ -86,11 +125,6 @@ public class Exercise {
      * This defines a weaker notion of equality between two exercises.
      */
     public boolean isSameExercise(Exercise otherExercise) {
-        if (otherExercise == this) {
-            return true;
-        }
-        return otherExercise != null
-                && otherExercise.getName().equals(getName())
-                && (otherExercise.getDate().equals(getDate()));
+        return equals(otherExercise);
     }
 }

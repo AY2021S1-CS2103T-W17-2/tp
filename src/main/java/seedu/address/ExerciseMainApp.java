@@ -23,6 +23,7 @@ import seedu.address.model.ReadOnlyExerciseBook;
 import seedu.address.model.ReadOnlyGoalBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exercise.TemplateList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.ExerciseBookStorage;
 import seedu.address.storage.GoalBookStorage;
@@ -44,7 +45,7 @@ public class ExerciseMainApp extends Application {
 
     public static final Version VERSION = new Version(0, 6, 0, true);
 
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final Logger logger = LogsCenter.getLogger(ExerciseMainApp.class);
 
     protected Ui ui;
     protected LogicForExercise logic;
@@ -75,12 +76,14 @@ public class ExerciseMainApp extends Application {
         logic = new LogicManagerForExercise(model, storage, goalStorage);
 
         ui = new ExerciseUiManager(logic);
+
+        TemplateList.load();
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s exercise book and {@code userPrefs}. <br>
+     * The data from the sample exercise book will be used instead if {@code storage}'s exercise book is not found,
+     * or an empty exercise book will be used instead if errors occur when reading {@code storage}'s exercise book.
      */
     private ExerciseModel initModelManager(StorageForExercise storage, StorageForGoal goalStorage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyExerciseBook> exerciseBookOptional;
@@ -88,14 +91,14 @@ public class ExerciseMainApp extends Application {
         try {
             exerciseBookOptional = storage.readExerciseBook();
             if (!exerciseBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample ExerciseBook");
             }
             initialData = exerciseBookOptional.orElseGet(SampleDataUtil::getSampleExerciseBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty ExerciseBook");
             initialData = new ExerciseBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");
             initialData = new ExerciseBook();
         }
         
@@ -176,7 +179,7 @@ public class ExerciseMainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");
             initializedPrefs = new UserPrefs();
         }
 

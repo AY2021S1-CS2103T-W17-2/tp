@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.FlowPane?>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -37,8 +38,10 @@
                </Label>
             </children>
          </HBox>
+            <FlowPane fx:id="tags" />
             <Label fx:id="date" styleClass="cell_small_label" text="\$dates" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+            <Label fx:id="muscles" styleClass="cell_small_label" text="\$muscle" />
         </VBox>
       <rowConstraints>
          <RowConstraints />

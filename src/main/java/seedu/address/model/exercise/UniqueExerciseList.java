@@ -3,6 +3,7 @@ package seedu.address.model.exercise;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
     private final ObservableList<Exercise> internalList = FXCollections.observableArrayList();
     private final ObservableList<Exercise> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private HashMap<String, Integer> caloriesByDay = new HashMap<>();
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -39,9 +41,15 @@ public class UniqueExerciseList implements Iterable<Exercise> {
         return internalList.stream().anyMatch(toCheck::isSameExercise);
     }
 
+    /**
+     * Returns the HashMap that contains the amount of calories burnt per day.
+     */
+    public HashMap<String, Integer> getCaloriesByDay() {
+        return caloriesByDay;
+    }
 
     /**
-     * Adds a exercise to the list.
+     * Adds an exercise to the list.
      * The exercise must not already exist in the list.
      */
     public void add(Exercise toAdd) {
@@ -50,13 +58,14 @@ public class UniqueExerciseList implements Iterable<Exercise> {
             throw new DuplicateExerciseException();
         }
         internalList.add(toAdd);
+        addCaloriesForDay(toAdd);
     }
 
     /**
      * Replaces the exercise {@code target} in the list with {@code editedExercise}.
      * {@code target} must exist in the list.
      */
-    public void setExercise(Exercise target, Exercise editedExercise) {
+    public void updateExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
 
         int index = internalList.indexOf(target);
@@ -70,6 +79,8 @@ public class UniqueExerciseList implements Iterable<Exercise> {
         }
 
         internalList.set(index, editedExercise);
+        minusCaloriesForDay(target);
+        addCaloriesForDay(editedExercise);
     }
 
     /**
@@ -81,11 +92,13 @@ public class UniqueExerciseList implements Iterable<Exercise> {
         if (!internalList.remove(toRemove)) {
             throw new ExerciseNotFoundException();
         }
+        minusCaloriesForDay(toRemove);
     }
 
     public void setExercises(UniqueExerciseList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        caloriesByDay = replacement.getCaloriesByDay();
     }
 
     /**
@@ -100,6 +113,15 @@ public class UniqueExerciseList implements Iterable<Exercise> {
         }
 
         internalList.setAll(exercises);
+        calculateExercise(exercises);
+    }
+
+    private void calculateExercise(List<Exercise> exercises) {
+        HashMap<String, Integer> newCaloriesByDay = new HashMap<>();
+        for (Exercise e: exercises) {
+            addCaloriesForDay(e, newCaloriesByDay);
+        }
+        caloriesByDay = newCaloriesByDay;
     }
 
     /**
@@ -138,6 +160,30 @@ public class UniqueExerciseList implements Iterable<Exercise> {
             }
         }
         return true;
+    }
+
+    private void addCaloriesForDay(Exercise newEntry) {
+        addCaloriesForDay(newEntry, caloriesByDay);
+    }
+
+    private void addCaloriesForDay(Exercise newEntry, HashMap<String, Integer> currentCaloriesByDay) {
+        String stringDate = newEntry.getDate().value;
+
+        int intCalories = Integer.parseInt(newEntry.getCalories().toString());
+        if (currentCaloriesByDay.containsKey(stringDate)) {
+            Integer newCalories = currentCaloriesByDay.get(stringDate) + intCalories;
+            currentCaloriesByDay.put(stringDate, newCalories);
+        } else {
+            currentCaloriesByDay.put(stringDate, intCalories);
+        }
+    }
+
+    private void minusCaloriesForDay(Exercise oldEntry) {
+        String stringDate = oldEntry.getDate().value;
+        int intCalories = Integer.parseInt(oldEntry.getCalories().toString());
+        assert caloriesByDay.containsKey(stringDate) : "Input for minusCaloriesForDay() is wrong";
+        Integer newCalories = caloriesByDay.get(stringDate) - intCalories;
+        caloriesByDay.put(stringDate, newCalories);
     }
 
 }

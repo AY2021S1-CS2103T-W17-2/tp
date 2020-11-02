@@ -8,11 +8,6 @@ import org.junit.jupiter.api.Test;
 
 public class DateTest {
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new seedu.address.model.exercise.Date(null));
-    }
-
-    @Test
     public void constructor_invalidDate_throwsIllegalArgumentException() {
         String invalidDate = "";
         assertThrows(IllegalArgumentException.class, () -> new seedu.address.model.exercise.Date(invalidDate));

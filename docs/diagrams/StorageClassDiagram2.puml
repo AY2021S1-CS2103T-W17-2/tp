@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Interface StorageForExercise <<Interface>>
+Interface UserPrefsStorage <<Interface>>
+Interface ExerciseBookStorage <<Interface>>
+
+Class StorageManagerForExercise
+Class JsonUserPrefsStorage
+Class ExerciseBookStorage
+
+StorageManagerForExercise .left.|> StorageForExercise
+StorageManagerForExercise o-right-> UserPrefsStorage
+StorageManagerForExercise o--> ExerciseBookStorage
+
+JsonUserPrefsStorage .left.|> UserPrefsStorage
+JsonExerciseBookStorage .left.|> ExerciseBookStorage
+JsonExerciseBookStorage .down.> JsonSerializableExerciseBookStorage
+JsonSerializableExerciseBookStorage .right.> JsonSerializablePerson
+JsonSerializablePerson .right.> JsonAdaptedTag
+@enduml

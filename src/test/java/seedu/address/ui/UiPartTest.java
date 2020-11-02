@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import javafx.fxml.FXML;
-import seedu.address.MainApp;
+import seedu.address.ExerciseMainApp;
 
 public class UiPartTest {
 
@@ -77,7 +77,7 @@ public class UiPartTest {
 
     private URL getTestFileUrl(String testFilePath) {
         String testFilePathInView = "/view/" + testFilePath;
-        URL testFileUrl = MainApp.class.getResource(testFilePathInView);
+        URL testFileUrl = ExerciseMainApp.class.getResource(testFilePathInView);
         assertNotNull(testFileUrl, testFilePathInView + " does not exist.");
         return testFileUrl;
     }

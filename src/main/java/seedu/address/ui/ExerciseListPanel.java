@@ -15,7 +15,7 @@ import seedu.address.model.exercise.Exercise;
  */
 public class ExerciseListPanel extends UiPart<Region> {
     private static final String FXML = "ExerciseListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(ExerciseListPanel.class);
 
     @FXML
     private ListView<Exercise> exerciseListView;
@@ -23,9 +23,9 @@ public class ExerciseListPanel extends UiPart<Region> {
     /**
      * Creates a {@code ExerciseListPanel} with the given {@code ObservableList}.
      */
-    public ExerciseListPanel(ObservableList<Exercise> personList) {
+    public ExerciseListPanel(ObservableList<Exercise> exerciseList) {
         super(FXML);
-        exerciseListView.setItems(personList);
+        exerciseListView.setItems(exerciseList);
         exerciseListView.setCellFactory(listView -> new ExerciseListViewCell());
     }
 
