@@ -4,10 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_KEYWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-
-import java.util.Arrays;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -40,10 +37,9 @@ public class FindCommandParser implements ExerciseParser<FindCommand> {
         Description description = null;
         Date date = null;
         Calories calories = null;
-        String[] keywords = null;
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME,
-                PREFIX_DESCRIPTION, PREFIX_DATE, PREFIX_CALORIES, PREFIX_KEYWORD);
+                PREFIX_DESCRIPTION, PREFIX_DATE, PREFIX_CALORIES);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
@@ -62,12 +58,8 @@ public class FindCommandParser implements ExerciseParser<FindCommand> {
         if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
             calories = ParserUtil.parseCalories(argMultimap.getValue(PREFIX_CALORIES).get());
         }
-        if (argMultimap.getValue(PREFIX_KEYWORD).isPresent()) {
-            keywords = argMultimap.getValue(PREFIX_KEYWORD).get().split("\\s+");
-        }
 
-        return new FindCommand(new PropertiesMatchPredicateForExercise(name, description, date, calories,
-                keywords == null ? null : Arrays.asList(keywords)));
+        return new FindCommand(new PropertiesMatchPredicateForExercise(name, description, date, calories));
     }
 
 }

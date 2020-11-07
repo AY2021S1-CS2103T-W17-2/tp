@@ -25,7 +25,7 @@ public class FindCommandParserTest {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
                 new FindCommand(new PropertiesMatchPredicateForExercise(null, null, null,
-                        null, Arrays.asList("Push", "Walk")));
+                        null));
         assertParseSuccess(parser, " k/Push Walk", expectedFindCommand);
 
         // multiple whitespaces between keywords

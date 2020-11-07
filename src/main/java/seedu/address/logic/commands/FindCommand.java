@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_KEYWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.core.Messages;
@@ -12,26 +11,25 @@ import seedu.address.model.ExerciseModel;
 import seedu.address.model.exercise.PropertiesMatchPredicateForExercise;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all exercises whose details are matched to the given ones.
+ * Fields are case sensitive.
  */
 public class FindCommand extends CommandForExercise {
 
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all exercises whose details are matched to the "
-            + "given ones (case-sensitive) and whose names contain any of the specified keywords (case-insensitive) "
-            + "and displays them as a list with index numbers.\n"
+            + "given ones (case-sensitive) and displays them as a list with index numbers. "
+            + "At least one field should be given.\n"
             + "Parameters: " + "[" + PREFIX_NAME + "EXERCISE] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_CALORIES + "CALORIES] "
-            + "[" + PREFIX_KEYWORD + "KEYWORDS...]\n"
+            + "[" + PREFIX_CALORIES + "CALORIES]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Push Up "
             + PREFIX_DESCRIPTION + "30 times "
             + PREFIX_DATE + "10-10-2020 "
-            + PREFIX_CALORIES + "100 ";
+            + PREFIX_CALORIES + "100";
 
     private final PropertiesMatchPredicateForExercise predicate;
 

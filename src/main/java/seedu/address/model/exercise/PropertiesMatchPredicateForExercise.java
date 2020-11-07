@@ -8,18 +8,16 @@ public class PropertiesMatchPredicateForExercise implements Predicate<Exercise> 
     private final Description description;
     private final Date date;
     private final Calories calories;
-    private final List<String> keywords;
 
     /**
      * Creates a predicate to find exercises with matched properties.
      */
     public PropertiesMatchPredicateForExercise(Name name, Description description,
-                                               Date date, Calories calories, List<String> keywords) {
+                                               Date date, Calories calories) {
         this.name = name;
         this.description = description;
         this.date = date;
         this.calories = calories;
-        this.keywords = keywords;
     }
 
     @Override
@@ -38,9 +36,6 @@ public class PropertiesMatchPredicateForExercise implements Predicate<Exercise> 
         if (calories != null) {
             result = result && (calories.equals(exercise.getCalories()));
         }
-        if (keywords != null) {
-            result = result && new NameContainsKeywordsPredicateForExercise(keywords).test(exercise);
-        }
 
         return result;
     }
@@ -54,8 +49,7 @@ public class PropertiesMatchPredicateForExercise implements Predicate<Exercise> 
             return (name == predicate.name || name.equals(predicate.name)) // name is null or names are equal
                     && (description == predicate.description || description.equals(predicate.description))
                     && (date == predicate.date || date.equals(predicate.date))
-                    && (calories == predicate.calories || calories.equals(predicate.calories))
-                    && (keywords == predicate.keywords || keywords.equals(predicate.keywords));
+                    && (calories == predicate.calories || calories.equals(predicate.calories));
         }
         return false;
     }

@@ -36,11 +36,9 @@ public class FindCommandTest {
         Date date = new Date("10-10-2020");
         Calories calories = new Calories("224");
         PropertiesMatchPredicateForExercise firstPredicate =
-                new PropertiesMatchPredicateForExercise(name, description, date,
-                        calories, Collections.singletonList("first"));
+                new PropertiesMatchPredicateForExercise(name, description, date, calories);
         PropertiesMatchPredicateForExercise secondPredicate =
-                new PropertiesMatchPredicateForExercise(name, description, date,
-                        calories, Collections.singletonList("second"));
+                new PropertiesMatchPredicateForExercise(name, description, date, calories);
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -68,7 +66,7 @@ public class FindCommandTest {
         String input = " ";
         List<String> keywords = Arrays.asList(input.split("\\s+"));
         PropertiesMatchPredicateForExercise predicate =
-                new PropertiesMatchPredicateForExercise(null, null, null, null, keywords);
+                new PropertiesMatchPredicateForExercise(null, null, null, null);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExerciseList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
