@@ -1,6 +1,5 @@
 package seedu.address.model.exercise;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 public class PropertiesMatchPredicateForExercise implements Predicate<Exercise> {
