@@ -11,7 +11,6 @@ much faster than the traditional GUI apps.
 We built Calo upon the [Address Book Level 3 (AB3) project](https://github.com/se-edu/addressbook-level3).
 
 ## Summary of Contributions
-
 ### Enhancement
 **Code contribution:** You can view my code contribution from this [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=nahoyhp&sort=groupTitle&sortWithin=title&since=2020-08-14&until=2020-11-09&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other).  
 
